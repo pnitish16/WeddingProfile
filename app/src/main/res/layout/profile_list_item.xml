@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.widget.CompoundButton" />
+
+        <variable
+            name="profileItem"
+            type="com.demoapp.weddingprofile.model.ResultsItem" />
+
+        <variable
+            name="viewmodel"
+            type="com.demoapp.weddingprofile.viewmodel.ProfileViewModel" />
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <TextView
+                android:id="@+id/tvProfileName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                app:first="@{profileItem.name.first}"
+                app:last="@{profileItem.name.last}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivProfileImage"
+                app:title="@{profileItem.name.title}" />
+
+
+            <TextView
+                android:id="@+id/tvProfileAge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="10dp"
+                android:text="@{`Age: ` + profileItem.dob.age + ` years`}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvProfileName" />
+
+            <ImageView
+                android:id="@+id/ivProfileImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/app_name"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_launcher_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tvProfileName"
+                app:layout_constraintTop_toTopOf="parent"
+                app:loadImage="@{profileItem.picture.large}" />
+
+            <ImageView
+                android:id="@+id/ivAccept"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="@null"
+                android:onClick="@{()->viewmodel.acceptClicked(profileItem)}"
+                app:isResponsed="@{profileItem.responseSaved}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/ivDecline"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvProfileName"
+                app:srcCompat="@mipmap/ic_accept" />
+
+
+            <ImageView
+                android:id="@+id/ivDecline"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="@null"
+                android:onClick="@{()->viewmodel.declineClicked(profileItem)}"
+                app:isResponsed="@{profileItem.responseSaved}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/ivAccept"
+                app:layout_constraintTop_toBottomOf="@+id/tvProfileName"
+                app:srcCompat="@mipmap/ic_decline" />
+
+            <TextView
+                android:id="@+id/tvProfileMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvProfileName" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+</layout>
